@@ -14,7 +14,10 @@ ignored = ["codec", "scale-info"]
 
 [dependencies]
 codec = { features = ["derive"], workspace = true }
-frame = { workspace = true, features = ["experimental", "runtime"], default-features = false }
+frame = { workspace = true, features = [
+  "experimental",
+  "runtime",
+], default-features = false }
 scale-info = { features = ["derive"], workspace = true }
 
 [dev-dependencies]
@@ -23,14 +26,6 @@ sp-io = { workspace = true, features = ["std"] }
 
 [features]
 default = ["std"]
-std = [
-	"codec/std",
-	"frame/std",
-	"scale-info/std",
-]
-runtime-benchmarks = [
-	"frame/runtime-benchmarks",
-]
-try-runtime = [
-	"frame/try-runtime",
-]
+std = ["codec/std", "frame/std", "scale-info/std"]
+runtime-benchmarks = ["frame/runtime-benchmarks"]
+try-runtime = ["frame/try-runtime"]

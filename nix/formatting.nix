@@ -13,10 +13,12 @@
           "**/*.gitignore"
         ];
         programs = {
-          # nixfmt.enable = true;
-          # jsonfmt.enable = true;
-          # shfmt.enable = true;
-          # taplo.enable = true;
+          nixfmt.enable = true;
+          shfmt = {
+            enable = true;
+            indent_size = 4;
+          };
+          taplo.enable = true;
 
           # Nightly rustfmt has support for more quality-of-life formatting
           # configuration options that aren't available in stable.
@@ -26,14 +28,14 @@
           };
 
           # Configure Prettier to handle Markdown and YAML
-          # prettier = {
-          #   enable = true;
-          #   includes = [
-          #     "*.md"
-          #     "*.yaml"
-          #     "*.yml"
-          #   ];
-          # };
+          prettier = {
+            enable = true;
+            includes = [
+              "*.md"
+              "*.yaml"
+              "*.yml"
+            ];
+          };
         };
       };
     };

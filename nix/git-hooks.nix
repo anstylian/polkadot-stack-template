@@ -70,6 +70,12 @@
             inherit cargoDeps;
           };
           hooks = {
+            # markdown
+            mdsh.enable = true;
+
+            # shell
+            shellcheck.enable = true;
+
             # nix
             nixfmt.enable = true;
             flake-checker.enable = true;
@@ -166,6 +172,20 @@
                   extend-ignore-words-re = [ "inherents" ];
                 };
               };
+            };
+
+            # toml
+            taplo.enable = true;
+
+            # yaml
+            yamllint = {
+              enable = true;
+              settings.configData = ''
+                extends: default
+                rules:
+                  document-start: disable
+                  line-length: disable
+              '';
             };
           };
         };

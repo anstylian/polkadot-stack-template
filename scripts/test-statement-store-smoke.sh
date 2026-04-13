@@ -2,13 +2,15 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=./common.sh
+# shellcheck disable=SC1091
 source "$SCRIPT_DIR/common.sh"
 
 WS_URL="$SUBSTRATE_RPC_WS"
 
 cleanup() {
-  cleanup_zombienet
-  rm -rf "${TMP_DIR:-}"
+    cleanup_zombienet
+    rm -rf "${TMP_DIR:-}"
 }
 
 trap cleanup EXIT
@@ -39,9 +41,9 @@ wait_for_substrate_rpc
 echo "[4/6] Verifying the store starts empty..."
 EMPTY_DUMP="$(cargo run -q -p stack-cli -- --url "$WS_URL" chain statement-dump)"
 if ! grep -q "No statements in the store." <<<"$EMPTY_DUMP"; then
-  echo "Expected an empty store, got:"
-  echo "$EMPTY_DUMP"
-  exit 1
+    echo "Expected an empty store, got:"
+    echo "$EMPTY_DUMP"
+    exit 1
 fi
 
 echo "[5/6] Submitting a signed statement..."
@@ -51,28 +53,28 @@ EOF
 
 SUBMIT_OUTPUT="$(cargo run -q -p stack-cli -- --url "$WS_URL" chain statement-submit --file "$TEST_FILE" --signer alice)"
 STATEMENT_HASH="$(
-  grep -E "Statement hash:|Hash:" <<<"$SUBMIT_OUTPUT" | awk '{print $NF}'
+    grep -E "Statement hash:|Hash:" <<<"$SUBMIT_OUTPUT" | awk '{print $NF}'
 )"
 
-if [[ -z "$STATEMENT_HASH" ]]; then
-  echo "Could not parse statement hash from submit output:"
-  echo "$SUBMIT_OUTPUT"
-  exit 1
+if [[ -z $STATEMENT_HASH ]]; then
+    echo "Could not parse statement hash from submit output:"
+    echo "$SUBMIT_OUTPUT"
+    exit 1
 fi
 
 echo "[6/6] Dumping statements and checking the submitted hash is present..."
 DUMP_OUTPUT="$(cargo run -q -p stack-cli -- --url "$WS_URL" chain statement-dump)"
 
 if ! grep -q "$STATEMENT_HASH" <<<"$DUMP_OUTPUT"; then
-  echo "Submitted statement hash $STATEMENT_HASH not found in dump:"
-  echo "$DUMP_OUTPUT"
-  exit 1
+    echo "Submitted statement hash $STATEMENT_HASH not found in dump:"
+    echo "$DUMP_OUTPUT"
+    exit 1
 fi
 
 if ! grep -q "proof=true" <<<"$DUMP_OUTPUT"; then
-  echo "Expected the dumped statement to include a proof:"
-  echo "$DUMP_OUTPUT"
-  exit 1
+    echo "Expected the dumped statement to include a proof:"
+    echo "$DUMP_OUTPUT"
+    exit 1
 fi
 
 echo ""

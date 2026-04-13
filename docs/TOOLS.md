@@ -217,11 +217,11 @@ npm run deploy:testnet       # Deploy to Polkadot TestNet
 
 Consistent formatting across all languages.
 
-| Tool | Scope | Config |
-|---|---|---|
-| `rustfmt` (nightly) | Rust (blockchain/, cli/) | `rustfmt.toml` — matches polkadot-sdk style |
-| ESLint | TypeScript/React (web/) | `web/eslint.config.js` — typescript-eslint + react-hooks |
-| Prettier | TypeScript (web/) + Solidity + TS (contracts/) | `.prettierrc` (root) + `contracts/*/.prettierrc` (Solidity plugin) |
+| Tool                | Scope                                          | Config                                                             |
+| ------------------- | ---------------------------------------------- | ------------------------------------------------------------------ |
+| `rustfmt` (nightly) | Rust (blockchain/, cli/)                       | `rustfmt.toml` — matches polkadot-sdk style                        |
+| ESLint              | TypeScript/React (web/)                        | `web/eslint.config.js` — typescript-eslint + react-hooks           |
+| Prettier            | TypeScript (web/) + Solidity + TS (contracts/) | `.prettierrc` (root) + `contracts/*/.prettierrc` (Solidity plugin) |
 
 ```bash
 cargo +nightly fmt && cargo clippy --workspace   # Rust

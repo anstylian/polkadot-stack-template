@@ -9,13 +9,13 @@ A FRAME pallet that lets users create and revoke ownership claims over 32-byte b
 
 ## Source Layout
 
-| File | Purpose |
-|---|---|
-| `src/lib.rs` | Pallet storage, config, calls, events, and errors |
-| `src/weights.rs` | Auto-generated weight functions from benchmarks |
+| File                  | Purpose                                                     |
+| --------------------- | ----------------------------------------------------------- |
+| `src/lib.rs`          | Pallet storage, config, calls, events, and errors           |
+| `src/weights.rs`      | Auto-generated weight functions from benchmarks             |
 | `src/benchmarking.rs` | Benchmark definitions for `create_claim` and `revoke_claim` |
-| `src/mock.rs` | Mock runtime used by unit tests |
-| `src/tests.rs` | Unit tests |
+| `src/mock.rs`         | Mock runtime used by unit tests                             |
+| `src/tests.rs`        | Unit tests                                                  |
 
 ## Commands
 

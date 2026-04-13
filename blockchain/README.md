@@ -4,13 +4,13 @@ A Polkadot SDK parachain built with FRAME and Cumulus, compatible with `polkadot
 
 ## Directory Guide
 
-| Path | What it contains |
-| --- | --- |
-| [`pallets/template/`](pallets/template/) | The Proof of Existence FRAME pallet |
-| [`runtime/`](runtime/) | The parachain runtime built on `polkadot-sdk stable2512-3` |
-| [`chain_spec.json`](chain_spec.json) | Generated local chain spec used by the dev scripts and some Docker flows |
-| [`Dockerfile`](Dockerfile) | Lightweight runtime image that packages a pre-generated chain spec |
-| [`zombienet.toml`](zombienet.toml) | Example relay-backed local topology |
+| Path                                     | What it contains                                                         |
+| ---------------------------------------- | ------------------------------------------------------------------------ |
+| [`pallets/template/`](pallets/template/) | The Proof of Existence FRAME pallet                                      |
+| [`runtime/`](runtime/)                   | The parachain runtime built on `polkadot-sdk stable2512-3`               |
+| [`chain_spec.json`](chain_spec.json)     | Generated local chain spec used by the dev scripts and some Docker flows |
+| [`Dockerfile`](Dockerfile)               | Lightweight runtime image that packages a pre-generated chain spec       |
+| [`zombienet.toml`](zombienet.toml)       | Example relay-backed local topology                                      |
 
 ## Common Commands
 

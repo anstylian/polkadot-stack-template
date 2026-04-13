@@ -10,15 +10,15 @@ Students do not need to use every part. Components are intentionally separated s
 
 ## Component Map
 
-| Component | Path | Tech |
-|---|---|---|
-| FRAME Pallet | `blockchain/pallets/template/` | Rust, FRAME, polkadot-sdk |
-| Parachain Runtime | `blockchain/runtime/` | Rust, Cumulus, pallet-revive |
-| EVM Contract | `contracts/evm/` | Solidity 0.8.28, Hardhat, solc |
-| PVM Contract | `contracts/pvm/` | Solidity 0.8.28, Hardhat, resolc (PolkaVM) |
-| Frontend | `web/` | React 18, Vite, TypeScript, Tailwind, PAPI, viem |
-| CLI | `cli/` | Rust, subxt, alloy, clap |
-| Scripts | `scripts/` | Bash (start, deploy, test helpers) |
+| Component         | Path                           | Tech                                             |
+| ----------------- | ------------------------------ | ------------------------------------------------ |
+| FRAME Pallet      | `blockchain/pallets/template/` | Rust, FRAME, polkadot-sdk                        |
+| Parachain Runtime | `blockchain/runtime/`          | Rust, Cumulus, pallet-revive                     |
+| EVM Contract      | `contracts/evm/`               | Solidity 0.8.28, Hardhat, solc                   |
+| PVM Contract      | `contracts/pvm/`               | Solidity 0.8.28, Hardhat, resolc (PolkaVM)       |
+| Frontend          | `web/`                         | React 18, Vite, TypeScript, Tailwind, PAPI, viem |
+| CLI               | `cli/`                         | Rust, subxt, alloy, clap                         |
+| Scripts           | `scripts/`                     | Bash (start, deploy, test helpers)               |
 
 ## How the Layers Connect
 

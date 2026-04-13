@@ -22,6 +22,7 @@ The simplest option for public demos.
 The workflow at `.github/workflows/deploy-github-pages.yml` runs automatically on push to `main`/`master`. It builds the frontend and deploys to GitHub Pages.
 
 Your site will be available at:
+
 ```
 https://<username>.github.io/<repo-name>/
 ```
@@ -118,6 +119,7 @@ cd contracts/pvm && npx hardhat vars set PRIVATE_KEY
 ```
 
 TestNet details:
+
 - **RPC**: `https://services.polkadothub-rpc.com/testnet`
 - **Chain ID**: `420420417`
 - **Explorer**: [blockscout-testnet.polkadot.io](https://blockscout-testnet.polkadot.io/)
@@ -132,6 +134,7 @@ TestNet details:
 ```
 
 This builds the runtime WASM, generates a chain spec, and starts the lightweight solo-node path. Endpoints:
+
 - **Substrate RPC**: `ws://127.0.0.1:9944` by default
 - **Ethereum RPC**: `http://127.0.0.1:8545` by default (requires `eth-rpc` running separately)
 
@@ -216,10 +219,12 @@ STACK_PORT_OFFSET=100 ./scripts/start-local.sh
 Both the frontend and CLI support optional file upload to the Polkadot Bulletin Chain, which makes files available via IPFS.
 
 **Prerequisites:**
+
 - Authorize the Substrate account that will sign the upload on [paritytech.github.io/polkadot-bulletin-chain](https://paritytech.github.io/polkadot-bulletin-chain/)
 - Bulletin Chain RPC: `wss://paseo-bulletin-rpc.polkadot.io`
 
 **Authorize an account on Bulletin Paseo:**
+
 1. Open [paritytech.github.io/polkadot-bulletin-chain](https://paritytech.github.io/polkadot-bulletin-chain/) and connect the account you will use for uploads
 2. Go to `Faucet` -> `Authorize Account`
 3. Enter the number of transactions and total bytes you need
@@ -229,6 +234,7 @@ Both the frontend and CLI support optional file upload to the Polkadot Bulletin 
 The allowance is temporary and usually expires around 100,000 blocks later. Use the site's `Renew` flow if you still need the upload after that window.
 
 **Frontend:**
+
 1. Toggle "Upload to IPFS (via Bulletin Chain)" in the file drop zone
 2. The frontend checks account authorization via PAPI
 3. File bytes are uploaded via `TransactionStorage.store()`
@@ -236,6 +242,7 @@ The allowance is temporary and usually expires around 100,000 blocks later. Use 
 5. The IPFS link appears in the claims list (verified via gateway HEAD request)
 
 **CLI:**
+
 ```bash
 # Hash a file and upload to Bulletin Chain, then claim on pallet
 cargo run -p stack-cli -- pallet create-claim --file ./document.pdf --upload
@@ -249,6 +256,7 @@ The CLI connects to the Bulletin Chain via subxt and submits `TransactionStorage
 For contract commands, `--upload` uses a Substrate signer for the Bulletin Chain and an Ethereum signer for the contract call. If you use a raw Ethereum private key with `--signer`, also pass `--bulletin-signer` explicitly.
 
 **Notes:**
+
 - The authorized account must match the Substrate signer used for `TransactionStorage.store()`
 - On Bulletin Paseo, authorization is self-service through the site's `Faucet` page; this is a testing flow and may differ on other Bulletin deployments
 - Files expire after ~7 days unless renewed

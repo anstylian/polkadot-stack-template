@@ -4,10 +4,10 @@ This directory contains the Solidity Proof of Existence example compiled for two
 
 ## Projects
 
-| Project | Path | Toolchain | VM backend |
-| --- | --- | --- | --- |
-| EVM | [`evm/`](evm/) | Hardhat + solc + viem | REVM |
-| PVM | [`pvm/`](pvm/) | Hardhat + `@parity/resolc` + viem | PolkaVM |
+| Project | Path           | Toolchain                         | VM backend |
+| ------- | -------------- | --------------------------------- | ---------- |
+| EVM     | [`evm/`](evm/) | Hardhat + solc + viem             | REVM       |
+| PVM     | [`pvm/`](pvm/) | Hardhat + `@parity/resolc` + viem | PolkaVM    |
 
 Each project includes its own `ProofOfExistence.sol` entrypoint:
 

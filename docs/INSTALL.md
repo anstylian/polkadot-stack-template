@@ -24,11 +24,13 @@ If you prefer to install everything natively (faster iteration, required for run
 The Rust build requires OpenSSL development headers and the Protocol Buffers compiler.
 
 **Ubuntu/Debian:**
+
 ```bash
 sudo apt-get install -y libssl-dev protobuf-compiler
 ```
 
 **macOS:**
+
 ```bash
 brew install openssl protobuf
 ```
@@ -146,6 +148,7 @@ cargo build -p stack-template-runtime --release
 ```
 
 This compiles the parachain runtime to both native and WASM. The WASM blob is output to:
+
 ```
 target/release/wbuild/stack-template-runtime/stack_template_runtime.compact.compressed.wasm
 ```
@@ -163,6 +166,7 @@ cargo test -p pallet-template
 ```
 
 With benchmarks:
+
 ```bash
 SKIP_PALLET_REVIVE_FIXTURES=1 cargo test --workspace --features runtime-benchmarks
 ```
@@ -174,6 +178,7 @@ SKIP_PALLET_REVIVE_FIXTURES=1 cargo test --workspace --features runtime-benchmar
 The project uses `rustfmt` for Rust, ESLint + Prettier for TypeScript/React, and Prettier with `prettier-plugin-solidity` for Solidity.
 
 **Rust:**
+
 ```bash
 cargo +nightly fmt              # format all Rust code
 cargo +nightly fmt --check      # check without modifying
@@ -181,6 +186,7 @@ cargo clippy --workspace        # lint
 ```
 
 **Frontend:**
+
 ```bash
 cd web
 npm run fmt           # format TypeScript/React
@@ -189,6 +195,7 @@ npm run lint          # ESLint
 ```
 
 **Contracts:**
+
 ```bash
 cd contracts/evm && npm run fmt     # format Solidity + TypeScript
 cd contracts/pvm && npm run fmt     # format Solidity + TypeScript
@@ -197,6 +204,7 @@ cd contracts/pvm && npm run fmt     # format Solidity + TypeScript
 ### Compile Solidity Contracts
 
 **EVM (solc):**
+
 ```bash
 cd contracts/evm
 npm install
@@ -204,6 +212,7 @@ npx hardhat compile
 ```
 
 **PVM (resolc):**
+
 ```bash
 cd contracts/pvm
 npm install
@@ -321,6 +330,7 @@ Your `polkadot-omni-node` version doesn't match the runtime. Download the correc
 ### "Failed to retrieve the parachain id"
 
 The chain spec is missing or empty. Regenerate it:
+
 ```bash
 chain-spec-builder \
     -c blockchain/chain_spec.json \
@@ -355,6 +365,7 @@ The `polkadot` binary requires `polkadot-prepare-worker` and `polkadot-execute-w
 ### Parachain stalls at block 0 on Zombienet
 
 All binaries (`polkadot`, `polkadot-omni-node`, `eth-rpc`) must be from the same SDK release. A version mismatch (e.g., `polkadot` 1.15.0 with `polkadot-omni-node` 1.21.3) causes the collator to fail to advertise collations to relay chain validators. Verify with (repo root, after `./scripts/download-sdk-binaries.sh`):
+
 ```bash
 ./bin/polkadot --version
 ./bin/polkadot-omni-node --version

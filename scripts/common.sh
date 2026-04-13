@@ -74,24 +74,24 @@ log_error() {
 
 install_hint() {
     case "$1" in
-        cargo)
-            echo "Install Rust via rustup: https://rustup.rs/"
-            ;;
-        chain-spec-builder)
-            echo "Install with: cargo install staging-chain-spec-builder"
-            ;;
-        zombienet)
-            echo "Install with: npm install -g @zombienet/cli"
-            ;;
-        polkadot|polkadot-omni-node|eth-rpc)
-            echo "Run ./scripts/download-sdk-binaries.sh to fetch stable2512-3 assets into ./bin/, or see docs/INSTALL.md."
-            ;;
-        curl)
-            echo "Install curl with your system package manager."
-            ;;
-        *)
-            echo "See docs/INSTALL.md for setup guidance."
-            ;;
+    cargo)
+        echo "Install Rust via rustup: https://rustup.rs/"
+        ;;
+    chain-spec-builder)
+        echo "Install with: cargo install staging-chain-spec-builder"
+        ;;
+    zombienet)
+        echo "Install with: npm install -g @zombienet/cli"
+        ;;
+    polkadot | polkadot-omni-node | eth-rpc)
+        echo "Run ./scripts/download-sdk-binaries.sh to fetch stable2512-3 assets into ./bin/, or see docs/INSTALL.md."
+        ;;
+    curl)
+        echo "Install curl with your system package manager."
+        ;;
+    *)
+        echo "See docs/INSTALL.md for setup guidance."
+        ;;
     esac
 }
 
@@ -111,30 +111,30 @@ first_line_semver() {
 stack_sdk_remote_filename() {
     local tool="$1"
     case "$(uname -s):$(uname -m)" in
-        Darwin:arm64)
-            printf '%s-aarch64-apple-darwin\n' "$tool"
-            ;;
-        Linux:x86_64)
-            printf '%s\n' "$tool"
-            ;;
-        *)
-            log_error "No prebuilt $tool for $(uname -s) $(uname -m) in ${STACK_SDK_RELEASE_TAG}."
-            log_info "Supported: macOS Apple Silicon (arm64), Linux x86_64. Otherwise build from source (docs/INSTALL.md)."
-            exit 1
-            ;;
+    Darwin:arm64)
+        printf '%s-aarch64-apple-darwin\n' "$tool"
+        ;;
+    Linux:x86_64)
+        printf '%s\n' "$tool"
+        ;;
+    *)
+        log_error "No prebuilt $tool for $(uname -s) $(uname -m) in ${STACK_SDK_RELEASE_TAG}."
+        log_info "Supported: macOS Apple Silicon (arm64), Linux x86_64. Otherwise build from source (docs/INSTALL.md)."
+        exit 1
+        ;;
     esac
 }
 
 stack_sdk_expected_semver() {
     case "$1" in
-        polkadot) printf '%s\n' "$STACK_EXPECTED_POLKADOT_SEMVER" ;;
-        polkadot-prepare-worker | polkadot-execute-worker) printf '%s\n' "$STACK_EXPECTED_POLKADOT_SEMVER" ;;
-        polkadot-omni-node) printf '%s\n' "$STACK_EXPECTED_OMNI_NODE_SEMVER" ;;
-        eth-rpc) printf '%s\n' "$STACK_EXPECTED_ETH_RPC_SEMVER" ;;
-        *)
-            log_error "Internal error: unknown SDK binary: $1"
-            exit 1
-            ;;
+    polkadot) printf '%s\n' "$STACK_EXPECTED_POLKADOT_SEMVER" ;;
+    polkadot-prepare-worker | polkadot-execute-worker) printf '%s\n' "$STACK_EXPECTED_POLKADOT_SEMVER" ;;
+    polkadot-omni-node) printf '%s\n' "$STACK_EXPECTED_OMNI_NODE_SEMVER" ;;
+    eth-rpc) printf '%s\n' "$STACK_EXPECTED_ETH_RPC_SEMVER" ;;
+    *)
+        log_error "Internal error: unknown SDK binary: $1"
+        exit 1
+        ;;
     esac
 }
 
@@ -145,18 +145,18 @@ _ensure_one_sdk_binary() {
     expected="$(stack_sdk_expected_semver "$name")"
     local need_dl=1
 
-    if [[ -x "$dest" ]]; then
-        if [[ "$STACK_SKIP_BINARY_VERSION_CHECK" == "1" ]]; then
+    if [[ -x $dest ]]; then
+        if [[ $STACK_SKIP_BINARY_VERSION_CHECK == "1" ]]; then
             need_dl=0
         else
             local out ver
             out="$("$dest" --version 2>&1)" || true
             ver="$(first_line_semver "$out")"
-            if [[ "$ver" == "$expected" ]]; then
+            if [[ $ver == "$expected" ]]; then
                 need_dl=0
-            elif [[ -z "$ver" && "$name" == polkadot-prepare-worker ]]; then
+            elif [[ -z $ver && $name == polkadot-prepare-worker ]]; then
                 need_dl=0
-            elif [[ -z "$ver" && "$name" == polkadot-execute-worker ]]; then
+            elif [[ -z $ver && $name == polkadot-execute-worker ]]; then
                 # Workers may not print a semver; keep existing file if present.
                 need_dl=0
             else
@@ -165,7 +165,7 @@ _ensure_one_sdk_binary() {
         fi
     fi
 
-    if [[ "$need_dl" -eq 0 ]]; then
+    if [[ $need_dl -eq 0 ]]; then
         return 0
     fi
 
@@ -183,11 +183,11 @@ _ensure_one_sdk_binary() {
     chmod +x "$tmp"
     mv "$tmp" "$dest"
 
-    if [[ "$STACK_SKIP_BINARY_VERSION_CHECK" != "1" ]]; then
+    if [[ $STACK_SKIP_BINARY_VERSION_CHECK != "1" ]]; then
         local out2 ver2
         out2="$("$dest" --version 2>&1)" || true
         ver2="$(first_line_semver "$out2")"
-        if [[ -n "$ver2" && "$ver2" != "$expected" ]]; then
+        if [[ -n $ver2 && $ver2 != "$expected" ]]; then
             log_error "Downloaded $name reports version $ver2, expected $expected."
             exit 1
         fi
@@ -198,8 +198,8 @@ _ensure_one_sdk_binary() {
 # Names: polkadot | polkadot-prepare-worker | polkadot-execute-worker | polkadot-omni-node | eth-rpc
 # Relay polkadot requires the two worker binaries beside it on PATH (same release).
 ensure_local_sdk_binaries() {
-    [[ "${STACK_DOWNLOAD_SDK_BINARIES:-1}" == "1" ]] || return 0
-    if [[ "$#" -eq 0 ]]; then
+    [[ ${STACK_DOWNLOAD_SDK_BINARIES:-1} == "1" ]] || return 0
+    if [[ $# -eq 0 ]]; then
         return 0
     fi
     require_command curl
@@ -216,7 +216,7 @@ require_cmd_semver_exact() {
     local expected="$2"
     local label="${3:-$1}"
 
-    if [[ "$STACK_SKIP_BINARY_VERSION_CHECK" == "1" ]]; then
+    if [[ $STACK_SKIP_BINARY_VERSION_CHECK == "1" ]]; then
         require_command "$cmd"
         return 0
     fi
@@ -225,13 +225,13 @@ require_cmd_semver_exact() {
     local out ver
     out="$("$cmd" --version 2>&1)" || true
     ver="$(first_line_semver "$out")"
-    if [[ -z "$ver" ]]; then
+    if [[ -z $ver ]]; then
         log_error "Could not parse a version from $label ($cmd --version)."
         log_info "Output was:"
         echo "$out" >&2
         exit 1
     fi
-    if [[ "$ver" != "$expected" ]]; then
+    if [[ $ver != "$expected" ]]; then
         log_error "$label: expected $expected (polkadot-sdk stable2512-3), found $ver."
         log_info "Output: $(echo "$out" | head -1)"
         log_info "$(install_hint "$cmd")"
@@ -240,7 +240,7 @@ require_cmd_semver_exact() {
 }
 
 require_zombienet_cli_version() {
-    if [[ "$STACK_SKIP_BINARY_VERSION_CHECK" == "1" ]]; then
+    if [[ $STACK_SKIP_BINARY_VERSION_CHECK == "1" ]]; then
         require_command zombienet
         return 0
     fi
@@ -248,7 +248,7 @@ require_zombienet_cli_version() {
     require_command zombienet
     local ver
     ver="$(zombienet version 2>&1 | head -1 | tr -d '\r\n')"
-    if [[ -z "$ver" ]] || [[ ! "$ver" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+    if [[ -z $ver ]] || [[ ! $ver =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
         log_error "Could not parse zombienet CLI version (expected output like 1.3.138)."
         log_info "Got: '$ver'"
         log_info "$(install_hint zombienet)"
@@ -256,7 +256,7 @@ require_zombienet_cli_version() {
     fi
     local major_minor
     major_minor="${ver%.*}"
-    if [[ "$major_minor" != "$STACK_EXPECTED_ZOMBIE_MAJOR_MINOR" ]]; then
+    if [[ $major_minor != "$STACK_EXPECTED_ZOMBIE_MAJOR_MINOR" ]]; then
         log_error "zombienet CLI: expected ${STACK_EXPECTED_ZOMBIE_MAJOR_MINOR}.x (see README), found $ver."
         log_info "$(install_hint zombienet)"
         exit 1
@@ -319,7 +319,7 @@ require_distinct_ports() {
         port="$2"
         shift 2
 
-        if [[ "$seen" == *"|$port|"* ]]; then
+        if [[ $seen == *"|$port|"* ]]; then
             log_error "Port assignment conflict detected for $label ($port)."
             log_info "Adjust STACK_PORT_OFFSET or the explicit STACK_*_PORT overrides and retry."
             exit 1
@@ -622,6 +622,7 @@ EOF
 write_papi_config() {
     local output_path="$1"
 
+    # shellcheck disable=SC2016
     node -e '
 const fs = require("fs");
 const [inputPath, outputPath, wsUrl] = process.argv.slice(1);
