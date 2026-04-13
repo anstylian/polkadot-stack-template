@@ -9,6 +9,9 @@ repository.workspace = true
 edition.workspace = true
 publish = false
 
+[package.metadata.cargo-machete]
+ignored = ["codec", "scale-info"]
+
 [dependencies]
 codec = { features = ["derive"], workspace = true }
 frame = { workspace = true, features = ["experimental", "runtime"], default-features = false }

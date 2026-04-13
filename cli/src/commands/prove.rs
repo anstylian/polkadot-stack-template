@@ -111,7 +111,7 @@ fn claim_target(args: &ProveArgs) -> Result<ClaimTarget, Box<dyn std::error::Err
 
 #[cfg(test)]
 mod tests {
-	use super::{claim_target, ClaimTarget, ProveArgs};
+	use super::{ClaimTarget, ProveArgs, claim_target};
 
 	fn args() -> ProveArgs {
 		ProveArgs {

@@ -20,16 +20,15 @@ use polkadot_sdk::{staging_parachain_info as parachain_info, *};
 
 use sp_api::impl_runtime_apis;
 use sp_runtime::{
-	generic, impl_opaque_keys,
+	MultiSignature, generic, impl_opaque_keys,
 	traits::{BlakeTwo256, IdentifyAccount, Verify},
-	MultiSignature,
 };
 
 #[cfg(feature = "std")]
 use sp_version::NativeVersion;
 use sp_version::RuntimeVersion;
 
-use frame_support::weights::{constants::WEIGHT_REF_TIME_PER_SECOND, Weight};
+use frame_support::weights::{Weight, constants::WEIGHT_REF_TIME_PER_SECOND};
 pub use sp_consensus_aura::sr25519::AuthorityId as AuraId;
 pub use sp_runtime::{MultiAddress, Perbill, Permill};
 
@@ -378,7 +377,15 @@ pallet_revive::impl_runtime_apis_plus_revive_traits!(
 			let weight = Executive::try_runtime_upgrade(checks).unwrap();
 			(weight, RuntimeBlockWeights::get().max_block)
 		}
-		fn execute_block(block: Block, state_root_check: bool, signature_check: bool, select: frame_try_runtime::TryStateSelect) -> frame_support::weights::Weight {
+		fn execute_block(
+			block: sp_runtime::generic::LazyBlock<
+				<Block as sp_runtime::traits::Block>::Header,
+				<Block as sp_runtime::traits::Block>::Extrinsic,
+			>,
+			state_root_check: bool,
+			signature_check: bool,
+			select: frame_try_runtime::TryStateSelect,
+		) -> frame_support::weights::Weight {
 			Executive::try_execute_block(block, state_root_check, signature_check, select).unwrap()
 		}
 	}

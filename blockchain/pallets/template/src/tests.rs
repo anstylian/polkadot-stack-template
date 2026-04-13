@@ -1,4 +1,4 @@
-use crate::{mock::*, pallet::Error, Claims};
+use crate::{Claims, mock::*, pallet::Error};
 use frame::testing_prelude::*;
 
 fn test_hash(n: u64) -> H256 {

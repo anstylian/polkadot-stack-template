@@ -17,7 +17,7 @@ mod benchmarks {
 		#[extrinsic_call]
 		create_claim(RawOrigin::Signed(caller.clone()), hash);
 
-		assert!(Claims::<T>::contains_key(&hash));
+		assert!(Claims::<T>::contains_key(hash));
 	}
 
 	#[benchmark]
@@ -25,7 +25,7 @@ mod benchmarks {
 		let caller: T::AccountId = whitelisted_caller();
 		let hash = H256::repeat_byte(1);
 		Claims::<T>::insert(
-			&hash,
+			hash,
 			Claim {
 				owner: caller.clone(),
 				block_number: frame_system::Pallet::<T>::block_number(),
@@ -34,7 +34,7 @@ mod benchmarks {
 		#[extrinsic_call]
 		revoke_claim(RawOrigin::Signed(caller.clone()), hash);
 
-		assert!(!Claims::<T>::contains_key(&hash));
+		assert!(!Claims::<T>::contains_key(hash));
 	}
 
 	impl_benchmark_test_suite!(ProofOfExistence, crate::mock::new_test_ext(), crate::mock::Test);

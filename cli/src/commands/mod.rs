@@ -5,8 +5,8 @@ pub mod prove;
 
 use alloy::sol;
 use blake2::{
-	digest::{consts::U32, Digest},
 	Blake2b,
+	digest::{Digest, consts::U32},
 };
 
 // Shared contract ABI for the ProofOfExistence Solidity contract.
@@ -33,12 +33,12 @@ pub fn parse_h256(hex_str: &str) -> Result<Vec<u8>, Box<dyn std::error::Error>> 
 	}
 	Ok(bytes)
 }
-use serde::{de::DeserializeOwned, Deserialize, Serialize};
+use serde::{Deserialize, Serialize, de::DeserializeOwned};
 use sp_core::Pair;
 use sp_statement_store::Statement;
 use std::fs;
 use subxt::{OnlineClient, PolkadotConfig};
-use subxt_signer::sr25519::{dev, Keypair};
+use subxt_signer::sr25519::{Keypair, dev};
 
 type Blake2b256 = Blake2b<U32>;
 type HashResult = Result<(String, Option<Vec<u8>>), Box<dyn std::error::Error>>;
@@ -150,8 +150,8 @@ pub async fn upload_to_bulletin(
 		file_bytes.len()
 	);
 	println!(
-        "Note: Requires authorization. Manage at: https://paritytech.github.io/polkadot-bulletin-chain/"
-    );
+		"Note: Requires authorization. Manage at: https://paritytech.github.io/polkadot-bulletin-chain/"
+	);
 
 	let tx = subxt::dynamic::tx(
 		"TransactionStorage",

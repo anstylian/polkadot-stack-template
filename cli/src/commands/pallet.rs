@@ -1,7 +1,7 @@
 use crate::commands::{hash_input, parse_h256, resolve_statement_signer, resolve_substrate_signer};
 use clap::Subcommand;
 use sp_core::crypto::AccountId32;
-use subxt::{dynamic::At, OnlineClient, PolkadotConfig};
+use subxt::{OnlineClient, PolkadotConfig, dynamic::At};
 
 #[derive(Subcommand)]
 pub enum PalletAction {

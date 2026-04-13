@@ -14,6 +14,8 @@
 
       # Define additional development tools
       devTools = with pkgs; [
+        pkg-config
+
         # Rust tools
         cargo-watch # Auto-rebuild on file changes
         cargo-edit # cargo add, cargo rm commands
@@ -61,10 +63,10 @@
       };
 
       # PATH extensions for package managers
-      pathExtensions = {
-        cargo = ''export PATH="$PATH:~/.cargo/bin"'';
-        npm = ''export PATH="$PATH:~/.npm-global/bin/"'';
-      };
+      # pathExtensions = {
+      #   cargo = ''export PATH="$PATH:~/.cargo/bin"'';
+      #   npm = ''export PATH="$PATH:~/.npm-global/bin/"'';
+      # };
 
       rustToolchainContents = builtins.readFile ../rust-toolchain.toml;
 
@@ -111,7 +113,6 @@
 
         shellHook = ''
           ${config.pre-commit.installationScript}
-          ${pathExtensions.cargo}
           ${devInfo}
         '';
       };

@@ -12,6 +12,9 @@ publish = false
 [package.metadata.docs.rs]
 targets = ["x86_64-unknown-linux-gnu"]
 
+[package.metadata.cargo-machete]
+ignored = ["codec", "log", "scale-info"]
+
 [build-dependencies]
 substrate-wasm-builder = { workspace = true, optional = true }
 
