@@ -39,10 +39,11 @@ async function main() {
 		abi: artifact.abi,
 		bytecode: artifact.bytecode as `0x${string}`,
 	});
+	console.log(`PVM deploy tx: ${hash}`);
 
 	const receipt = await publicClient.waitForTransactionReceipt({
 		hash,
-		timeout: 120_000,
+		timeout: 300_000,
 	});
 
 	if (!receipt.contractAddress) {
