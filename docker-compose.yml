@@ -24,7 +24,7 @@ services:
       context: .
       dockerfile: docker/Dockerfile.node
     ports:
-      - '9944:9944'
+      - "9944:9944"
     volumes:
       - chain-data:/data
     command: >
@@ -40,7 +40,7 @@ services:
       --rpc-port=9944
     healthcheck:
       test:
-        ['CMD-SHELL', "bash -c 'echo > /dev/tcp/127.0.0.1/9944' 2>/dev/null"]
+        ["CMD-SHELL", "bash -c 'echo > /dev/tcp/127.0.0.1/9944' 2>/dev/null"]
       interval: 5s
       timeout: 3s
       retries: 30
@@ -51,7 +51,7 @@ services:
       context: .
       dockerfile: docker/Dockerfile.eth-rpc
     ports:
-      - '8545:8545'
+      - "8545:8545"
     command: >
       --node-rpc-url ws://node:9944
       --rpc-port 8545
@@ -63,7 +63,7 @@ services:
     healthcheck:
       test:
         [
-          'CMD-SHELL',
+          "CMD-SHELL",
           'curl -sf -X POST -H ''Content-Type: application/json'' -d ''{"jsonrpc":"2.0","id":1,"method":"eth_chainId","params":[]}'' http://127.0.0.1:8545 | grep -q result',
         ]
       interval: 5s

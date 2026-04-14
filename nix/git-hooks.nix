@@ -187,6 +187,7 @@
                 rules:
                   document-start: disable
                   line-length: disable
+                  truthy: disable
               '';
             };
           };
