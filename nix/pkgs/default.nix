@@ -1,7 +1,9 @@
 {
-  perSystem = {
-    packages = {
-      # Define your custom packages here
+  perSystem =
+    { pkgs, ... }:
+    {
+      packages = {
+        eth-rpc = pkgs.callPackage ./eth-rpc.nix { };
+      };
     };
-  };
 }

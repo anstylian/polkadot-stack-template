@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, self, ... }:
 {
   perSystem =
     { config, system, ... }:
@@ -8,6 +8,9 @@
         inherit system;
         overlays = [ (import inputs.rust-overlay) ];
       };
+      polkadotPkgsFlake = inputs.polkadot-nix.packages.${system};
+      zombienetFlake = inputs.zombienet.packages.${system};
+      zombienet = zombienetFlake.default;
 
       # Define Rust toolchain - you can customize this
       rustToolchain = pkgs.rust-bin.fromRustupToolchainFile ../rust-toolchain.toml;
@@ -35,6 +38,12 @@
         tokio-console
 
         pre-commit
+      ];
+
+      polkadotPkgs = with polkadotPkgsFlake; [
+        polkadot
+        polkadot-omni-node
+        chain-spec-builder
       ];
 
       # Documentation generation tools
@@ -95,7 +104,15 @@
     {
       # Development shell
       devShells.default = pkgs.mkShell {
-        buildInputs = [ rustToolchain ] ++ devTools ++ docTools;
+        buildInputs = [
+          rustToolchain
+          pkgs.openssl
+          self.packages.${system}.eth-rpc
+          zombienet
+        ]
+        ++ polkadotPkgs
+        ++ devTools
+        ++ docTools;
 
         inherit (envs.rust)
           RUST_SRC_PATH

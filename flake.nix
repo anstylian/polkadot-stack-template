@@ -5,6 +5,8 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     git-hooks-nix.url = "github:cachix/git-hooks.nix";
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    polkadot-nix.url = "github:andresilva/polkadot.nix";
+    zombienet.url = "github:anstylian/zombienet";
     rust-overlay.url = "github:oxalica/rust-overlay";
     treefmt-nix.url = "github:numtide/treefmt-nix";
   };
