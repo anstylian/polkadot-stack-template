@@ -126,23 +126,23 @@ cd contracts/pvm && npx hardhat test
 
 ## Key Versions
 
-| Component          | Version                                 |
-| ------------------ | --------------------------------------- |
-| polkadot-sdk       | stable2603                              |
-| polkadot           | v1.22.0 (relay chain binary)            |
-| polkadot-omni-node | v1.22.0 (from stable2603 release)       |
-| eth-rpc            | v0.14.0 (Ethereum JSON-RPC adapter)     |
-| chain-spec-builder | v17.0.0                                 |
-| zombienet          | v1.3.138 (@zombienet/cli)               |
-| pallet-revive      | v0.12.2 (EVM + PVM smart contracts)     |
-| Node.js            | 22.x LTS                                |
-| Solidity           | v0.8.28                                 |
-| resolc             | v1.0.0                                  |
-| PAPI               | v1.23.3                                 |
-| React              | v18.3                                   |
-| viem               | v2.x                                    |
-| alloy              | v1.8                                    |
-| Hardhat            | v2.27+                                  |
+| Component          | Version                             |
+| ------------------ | ----------------------------------- |
+| polkadot-sdk       | stable2603                          |
+| polkadot           | v1.22.0 (relay chain binary)        |
+| polkadot-omni-node | v1.22.0 (from stable2603 release)   |
+| eth-rpc            | v0.14.0 (Ethereum JSON-RPC adapter) |
+| chain-spec-builder | v17.0.0                             |
+| zombienet          | v1.3.138 (@zombienet/cli)           |
+| pallet-revive      | v0.12.2 (EVM + PVM smart contracts) |
+| Node.js            | 22.x LTS                            |
+| Solidity           | v0.8.28                             |
+| resolc             | v1.0.0                              |
+| PAPI               | v1.23.3                             |
+| React              | v18.3                               |
+| viem               | v2.x                                |
+| alloy              | v1.8                                |
+| Hardhat            | v2.27+                              |
 
 ## Resources
 

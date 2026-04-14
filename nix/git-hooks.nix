@@ -19,9 +19,9 @@
         if builtins.pathExists ../Cargo.lock then
           pkgs.rustPlatform.importCargoLock {
             lockFile = ../Cargo.lock;
-            outputHashes = {
-              "pallet-revive-proc-macro-0.7.1" = "sha256-UOD29/7fEc1z5E2LybtQ9V+CFNNvDaFmCRPytei+wtA=";
-            };
+            # outputHashes = {
+            #   "pallet-revive-proc-macro-0.7.1" = "sha256-UOD29/7fEc1z5E2LybtQ9V+CFNNvDaFmCRPytei+wtA=";
+            # };
           }
         else
           null;

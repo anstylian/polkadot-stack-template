@@ -153,9 +153,9 @@ _ensure_one_sdk_binary() {
         # Reuse a runnable environment-provided binary instead of downloading
         # another copy. Version validation happens later in the normal toolchain
         # checks so mismatches fail clearly without falling back to GitHub assets.
-        if "$existing" --version >/dev/null 2>&1 \
-            || [[ $name == polkadot-prepare-worker ]] \
-            || [[ $name == polkadot-execute-worker ]]; then
+        if "$existing" --version >/dev/null 2>&1 ||
+            [[ $name == polkadot-prepare-worker ]] ||
+            [[ $name == polkadot-execute-worker ]]; then
             ln -sf "$existing" "$dest"
             need_dl=0
         fi
