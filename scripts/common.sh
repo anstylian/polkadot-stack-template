@@ -44,10 +44,10 @@ export SUBSTRATE_RPC_WS
 export ETH_RPC_HTTP
 export FRONTEND_URL
 
-# Expected versions for polkadot-sdk stable2512-3 (see README "Key Versions").
-STACK_EXPECTED_POLKADOT_SEMVER="${STACK_EXPECTED_POLKADOT_SEMVER:-1.21.3}"
-STACK_EXPECTED_OMNI_NODE_SEMVER="${STACK_EXPECTED_OMNI_NODE_SEMVER:-1.21.3}"
-STACK_EXPECTED_ETH_RPC_SEMVER="${STACK_EXPECTED_ETH_RPC_SEMVER:-0.12.0}"
+# Expected versions for polkadot-sdk stable2603 (see README "Key Versions").
+STACK_EXPECTED_POLKADOT_SEMVER="${STACK_EXPECTED_POLKADOT_SEMVER:-1.22.0}"
+STACK_EXPECTED_OMNI_NODE_SEMVER="${STACK_EXPECTED_OMNI_NODE_SEMVER:-1.22.0}"
+STACK_EXPECTED_ETH_RPC_SEMVER="${STACK_EXPECTED_ETH_RPC_SEMVER:-0.14.0}"
 STACK_EXPECTED_CHAIN_SPEC_BUILDER_SEMVER="${STACK_EXPECTED_CHAIN_SPEC_BUILDER_SEMVER:-17.0.0}"
 # zombienet prints bare semver (e.g. 1.3.138); allow any 1.3.x patch.
 STACK_EXPECTED_ZOMBIE_MAJOR_MINOR="${STACK_EXPECTED_ZOMBIE_MAJOR_MINOR:-1.3}"
@@ -57,7 +57,7 @@ STACK_SKIP_BINARY_VERSION_CHECK="${STACK_SKIP_BINARY_VERSION_CHECK:-0}"
 # Download polkadot / polkadot-omni-node / eth-rpc into a gitignored folder and prepend it on PATH
 # so mismatched global installs (e.g. older ~/.cargo/bin) do not break Zombienet.
 STACK_LOCAL_BIN_DIR="${STACK_LOCAL_BIN_DIR:-$ROOT_DIR/bin}"
-STACK_SDK_RELEASE_TAG="${STACK_SDK_RELEASE_TAG:-polkadot-stable2512-3}"
+STACK_SDK_RELEASE_TAG="${STACK_SDK_RELEASE_TAG:-polkadot-stable2603}"
 STACK_DOWNLOAD_SDK_BINARIES="${STACK_DOWNLOAD_SDK_BINARIES:-1}"
 
 log_info() {
@@ -84,7 +84,7 @@ install_hint() {
         echo "Install with: npm install -g @zombienet/cli"
         ;;
     polkadot | polkadot-omni-node | eth-rpc)
-        echo "Run ./scripts/download-sdk-binaries.sh to fetch stable2512-3 assets into ./bin/, or see docs/INSTALL.md."
+        echo "Run ./scripts/download-sdk-binaries.sh to fetch stable2603 assets into ./bin/, or see docs/INSTALL.md."
         ;;
     curl)
         echo "Install curl with your system package manager."
@@ -248,7 +248,7 @@ require_cmd_semver_exact() {
         exit 1
     fi
     if [[ $ver != "$expected" ]]; then
-        log_error "$label: expected $expected (polkadot-sdk stable2512-3), found $ver."
+        log_error "$label: expected $expected (polkadot-sdk stable2603), found $ver."
         log_info "Output: $(echo "$out" | head -1)"
         log_info "$(install_hint "$cmd")"
         exit 1
@@ -519,7 +519,7 @@ wait_for_substrate_rpc() {
                 if [ -d "${ZOMBIE_DIR}/logs" ]; then
                     log_info "If Zombienet reported [alice]/[bob] metric timeouts, open $ZOMBIE_DIR/logs and read the relay validator logs for those nodes."
                 fi
-                log_info "Relay binary must be polkadot ${STACK_EXPECTED_POLKADOT_SEMVER} from stable2512-3 (./scripts/download-sdk-binaries.sh installs into ./bin/)."
+                log_info "Relay binary must be polkadot ${STACK_EXPECTED_POLKADOT_SEMVER} from stable2603 (./scripts/download-sdk-binaries.sh installs into ./bin/)."
             fi
             if [ -n "$startup_log" ] && [ -f "$startup_log" ]; then
                 log_info "Recent log output:"

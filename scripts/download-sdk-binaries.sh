@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Fetch polkadot (relay) + prepare/execute workers, polkadot-omni-node, and eth-rpc from
-# polkadot-sdk stable2512-3 into the repo-local bin/ directory (gitignored).
+# polkadot-sdk stable2603 into the repo-local bin/ directory (gitignored).
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=/dev/null

@@ -16,13 +16,13 @@ let
 in
 rustPlatform.buildRustPackage rec {
   pname = "eth-rpc";
-  version = "0.12.0";
+  version = "0.14.0";
 
   src = fetchFromGitHub {
     owner = "paritytech";
     repo = "polkadot-sdk";
-    tag = "polkadot-stable2512-3";
-    hash = "sha256-UOD29/7fEc1z5E2LybtQ9V+CFNNvDaFmCRPytei+wtA=";
+    tag = "polkadot-stable2603";
+    hash = "sha256-2f3+/UejdTBt4/rhKP/jCS7JY7eeSLcOXiecWu47x+Y=";
   };
 
   cargoBuildFlags = [

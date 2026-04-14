@@ -37,7 +37,7 @@ Only Node.js is needed on the host. The Docker build compiles the Rust runtime a
 - **protoc** Protocol Buffers compiler (`protobuf-compiler` on Ubuntu, `protobuf` on macOS)
 - **Rust** (stable, installed via [rustup](https://rustup.rs/))
 - **Node.js** 22.x LTS (`22.5+` recommended) and npm v10.9.0+
-- **Polkadot SDK binaries** (stable2512-3): `polkadot`, `polkadot-prepare-worker`, `polkadot-execute-worker` (relay), `polkadot-omni-node`, and `eth-rpc`. Fetch them into `./bin/` (gitignored) with:
+- **Polkadot SDK binaries** (stable2603): `polkadot`, `polkadot-prepare-worker`, `polkadot-execute-worker` (relay), `polkadot-omni-node`, and `eth-rpc`. Fetch them into `./bin/` (gitignored) with:
 
   ```bash
   ./scripts/download-sdk-binaries.sh
@@ -62,7 +62,7 @@ The repo includes [`.nvmrc`](.nvmrc) and `engines` fields in the JavaScript proj
 # Frontend:      http://127.0.0.1:5173
 ```
 
-`start-all.sh` is the recommended full-feature local path. It uses Zombienet under the hood so the Statement Store example works on `polkadot-sdk stable2512-3`.
+`start-all.sh` is the recommended full-feature local path. It uses Zombienet under the hood so the Statement Store example works on `polkadot-sdk stable2603`.
 
 For the solo-node loop, relay-backed network, frontend-only startup, port overrides, or a second local stack, see [`scripts/README.md`](scripts/README.md).
 
@@ -128,10 +128,10 @@ cd contracts/pvm && npx hardhat test
 
 | Component          | Version                                 |
 | ------------------ | --------------------------------------- |
-| polkadot-sdk       | stable2512-3 (umbrella crate v2512.3.3) |
-| polkadot           | v1.21.3 (relay chain binary)            |
-| polkadot-omni-node | v1.21.3 (from stable2512-3 release)     |
-| eth-rpc            | v0.12.0 (Ethereum JSON-RPC adapter)     |
+| polkadot-sdk       | stable2603                              |
+| polkadot           | v1.22.0 (relay chain binary)            |
+| polkadot-omni-node | v1.22.0 (from stable2603 release)       |
+| eth-rpc            | v0.14.0 (Ethereum JSON-RPC adapter)     |
 | chain-spec-builder | v17.0.0                                 |
 | zombienet          | v1.3.138 (@zombienet/cli)               |
 | pallet-revive      | v0.12.2 (EVM + PVM smart contracts)     |

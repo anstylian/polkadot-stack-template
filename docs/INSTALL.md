@@ -70,7 +70,7 @@ The repo root includes `.nvmrc`, and the JavaScript projects declare `engines.no
 
 ### Polkadot SDK binaries (relay, workers, omni-node, eth-rpc)
 
-Zombienet runs the **`polkadot`** relay binary; local dev uses **`polkadot-omni-node`**. Contract tooling expects **`eth-rpc`** (Ethereum JSON-RPC on port `8545` by default). All must match **[polkadot-stable2512-3](https://github.com/paritytech/polkadot-sdk/releases/tag/polkadot-stable2512-3)**.
+Zombienet runs the **`polkadot`** relay binary; local dev uses **`polkadot-omni-node`**. Contract tooling expects **`eth-rpc`** (Ethereum JSON-RPC on port `8545` by default). All must match **[polkadot-stable2603](https://github.com/paritytech/polkadot-sdk/releases/tag/polkadot-stable2603)**.
 
 **Recommended for this repo:** run from the repository root:
 
@@ -80,14 +80,14 @@ Zombienet runs the **`polkadot`** relay binary; local dev uses **`polkadot-omni-
 
 That fetches `polkadot`, `polkadot-prepare-worker`, `polkadot-execute-worker`, `polkadot-omni-node`, and `eth-rpc` into **`./bin/`** (gitignored). The stack scripts prepend `./bin` on `PATH` when **`STACK_DOWNLOAD_SDK_BINARIES=1`** (default). The relay binary requires the two **worker** binaries in the **same directory** as `polkadot`; the script places them together.
 
-If you install binaries yourself, keep the same release for every binary and put relay + workers on `PATH` side by side. Prebuilt assets are on the [release page](https://github.com/paritytech/polkadot-sdk/releases/tag/polkadot-stable2512-3); platform support matches the script (macOS Apple Silicon and Linux x86_64).
+If you install binaries yourself, keep the same release for every binary and put relay + workers on `PATH` side by side. Prebuilt assets are on the [release page](https://github.com/paritytech/polkadot-sdk/releases/tag/polkadot-stable2603); platform support matches the script (macOS Apple Silicon and Linux x86_64).
 
 **Build from source** (optional):
 
 ```bash
-cargo install --git https://github.com/paritytech/polkadot-sdk --tag polkadot-stable2512-3 polkadot --locked
-cargo install --git https://github.com/paritytech/polkadot-sdk --tag polkadot-stable2512-3 polkadot-omni-node --locked
-cargo install --git https://github.com/paritytech/polkadot-sdk --tag polkadot-stable2512-3 pallet-revive-eth-rpc --locked
+cargo install --git https://github.com/paritytech/polkadot-sdk --tag polkadot-stable2603 polkadot --locked
+cargo install --git https://github.com/paritytech/polkadot-sdk --tag polkadot-stable2603 polkadot-omni-node --locked
+cargo install --git https://github.com/paritytech/polkadot-sdk --tag polkadot-stable2603 pallet-revive-eth-rpc --locked
 ```
 
 Building `polkadot` from source produces the worker binaries alongside it.
@@ -96,13 +96,13 @@ Building `polkadot` from source produces the worker binaries alongside it.
 
 ```bash
 ./bin/polkadot --version
-# polkadot 1.21.3-...
+# polkadot 1.22.0-...
 
 ./bin/polkadot-omni-node --version
-# polkadot-omni-node 1.21.3-...
+# polkadot-omni-node 1.22.0-...
 
 ./bin/eth-rpc --version
-# pallet-revive-eth-rpc 0.12.0
+# pallet-revive-eth-rpc 0.14.0
 ```
 
 If `./bin` is on your `PATH` (as when running `./scripts/start-all.sh` or after `export PATH="$(pwd)/bin:$PATH"`), you can call `polkadot --version` etc. without the prefix.
@@ -348,7 +348,7 @@ Make sure you're using the `polkadot-sdk` umbrella crate (not individual crate d
 
 ### pallet-revive-proc-macro compilation error
 
-The `[patch.crates-io]` section in `Cargo.toml` pins `pallet-revive-proc-macro` to v0.7.1 from the polkadot-sdk stable2512-3 tag. If you regenerate `Cargo.lock`, this patch is applied automatically.
+If you are upgrading the workspace to `stable2603`, rewrite the Polkadot SDK crate pins together instead of keeping an older one-off proc-macro override. The recommended path is to use `psvm -v 1.22.0` and then regenerate `Cargo.lock`.
 
 ### TypeScript moduleResolution error in Hardhat
 
@@ -360,16 +360,16 @@ In polkadot-sdk stable2512-3, `--enable-statement-store` is silently ignored in 
 
 ### "Worker binaries could not be found"
 
-The `polkadot` binary requires `polkadot-prepare-worker` and `polkadot-execute-worker` in the **same directory** on your `PATH`. Without them, relay validators fail at startup. Use `./scripts/download-sdk-binaries.sh` (or install matching artifacts from the [stable2512-3 release](https://github.com/paritytech/polkadot-sdk/releases/tag/polkadot-stable2512-3) next to `polkadot`).
+The `polkadot` binary requires `polkadot-prepare-worker` and `polkadot-execute-worker` in the **same directory** on your `PATH`. Without them, relay validators fail at startup. Use `./scripts/download-sdk-binaries.sh` (or install matching artifacts from the [stable2603 release](https://github.com/paritytech/polkadot-sdk/releases/tag/polkadot-stable2603) next to `polkadot`).
 
 ### Parachain stalls at block 0 on Zombienet
 
-All binaries (`polkadot`, `polkadot-omni-node`, `eth-rpc`) must be from the same SDK release. A version mismatch (e.g., `polkadot` 1.15.0 with `polkadot-omni-node` 1.21.3) causes the collator to fail to advertise collations to relay chain validators. Verify with (repo root, after `./scripts/download-sdk-binaries.sh`):
+All binaries (`polkadot`, `polkadot-omni-node`, `eth-rpc`) must be from the same SDK release. A version mismatch (e.g., `polkadot` 1.15.0 with `polkadot-omni-node` 1.22.0) causes the collator to fail to advertise collations to relay chain validators. Verify with (repo root, after `./scripts/download-sdk-binaries.sh`):
 
 ```bash
 ./bin/polkadot --version
 ./bin/polkadot-omni-node --version
-# Both should show 1.21.3
+# Both should show 1.22.0
 ```
 
 ### Frontend builds but uses stale chain types
