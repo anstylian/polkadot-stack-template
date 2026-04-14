@@ -4,8 +4,10 @@
   imports = [ inputs.git-hooks-nix.flakeModule ];
 
   perSystem =
-    { pkgs, rustToolchainStable, ... }:
+    { pkgs, ... }:
     let
+      rustToolchainStable = pkgs.rust-bin.fromRustupToolchainFile ../rust-toolchain.toml;
+
       rustHookPackages = [
         rustToolchainStable
         pkgs.pkg-config

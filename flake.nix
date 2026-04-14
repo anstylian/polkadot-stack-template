@@ -26,7 +26,6 @@
       ];
 
       imports = [
-        ./nix/lib.nix
         ./nix/pkgs
         ./nix/devshell.nix
         ./nix/formatting.nix
