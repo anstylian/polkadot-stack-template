@@ -144,6 +144,22 @@ _ensure_one_sdk_binary() {
     local expected
     expected="$(stack_sdk_expected_semver "$name")"
     local need_dl=1
+    local existing=""
+
+    # Prefer a working binary already available on PATH and mirror it into ./bin
+    # so relay workers stay colocated with the relay binary.
+    existing="$(command -v "$name" 2>/dev/null || true)"
+    if [[ -n $existing && $existing != "$dest" ]]; then
+        # Reuse a runnable environment-provided binary instead of downloading
+        # another copy. Version validation happens later in the normal toolchain
+        # checks so mismatches fail clearly without falling back to GitHub assets.
+        if "$existing" --version >/dev/null 2>&1 \
+            || [[ $name == polkadot-prepare-worker ]] \
+            || [[ $name == polkadot-execute-worker ]]; then
+            ln -sf "$existing" "$dest"
+            need_dl=0
+        fi
+    fi
 
     if [[ -x $dest ]]; then
         if [[ $STACK_SKIP_BINARY_VERSION_CHECK == "1" ]]; then

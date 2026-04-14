@@ -9,6 +9,7 @@
         overlays = [ (import inputs.rust-overlay) ];
       };
       polkadotPkgsFlake = inputs.polkadot-nix.packages.${system};
+      polkadotPkgsLatestFlake = inputs.polkadot-nix-latest.packages.${system};
       zombienetFlake = inputs.zombienet.packages.${system};
       zombienet = zombienetFlake.default;
 
@@ -36,6 +37,9 @@
         protobuf
         typos
         tokio-console
+        curl
+        nodejs
+        solc
 
         pre-commit
       ];
@@ -43,6 +47,9 @@
       polkadotPkgs = with polkadotPkgsFlake; [
         polkadot
         polkadot-omni-node
+      ];
+
+      polkadotTools = with polkadotPkgsLatestFlake; [
         chain-spec-builder
       ];
 
@@ -111,6 +118,7 @@
           zombienet
         ]
         ++ polkadotPkgs
+        ++ polkadotTools
         ++ devTools
         ++ docTools;
 
