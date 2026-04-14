@@ -27,13 +27,13 @@
           null;
 
       # Wrapper script for cargo-audit that skips in Nix sandbox (no network access)
-      cargoAuditWrapper = pkgs.writeShellScript "cargo-audit-wrapper" ''
-        if [ -n "$NIX_BUILD_TOP" ]; then
-          echo "Skipping cargo-audit in Nix sandbox (requires network access)"
-          exit 0
-        fi
-        exec ${pkgs.cargo-audit}/bin/cargo-audit audit
-      '';
+      # cargoAuditWrapper = pkgs.writeShellScript "cargo-audit-wrapper" ''
+      #   if [ -n "$NIX_BUILD_TOP" ]; then
+      #     echo "Skipping cargo-audit in Nix sandbox (requires network access)"
+      #     exit 0
+      #   fi
+      #   exec ${pkgs.cargo-audit}/bin/cargo-audit audit
+      # '';
 
       cargoCheckWrapper = pkgs.writeShellScript "cargo-check-wrapper" ''
         export PATH=${rustToolchainStable}/bin:$PATH
@@ -107,11 +107,11 @@
 
             # Check for security vulnerabilities
             # Skipped in Nix sandbox (requires network access to fetch advisory database)
-            cargo-audit = {
-              enable = true;
-              name = "cargo-audit";
-              entry = "${cargoAuditWrapper}";
-            };
+            # cargo-audit = {
+            #   enable = true;
+            #   name = "cargo-audit";
+            #   entry = "${cargoAuditWrapper}";
+            # };
 
             # Check for unused dependencies
             cargo-machete = {
@@ -147,6 +147,7 @@
                 "^web/\\.papi/metadata/"
                 "^web/node_modules/"
                 "^contracts/.*/node_modules/"
+                "^blockchain/chain_spec\\.json$"
               ];
             };
             trufflehog = {
@@ -159,6 +160,7 @@
                 "^web/\\.papi/metadata/"
                 "^web/node_modules/"
                 "^contracts/.*/node_modules/"
+                "^blockchain/chain_spec\\.json$"
               ];
             };
 

@@ -111,6 +111,7 @@
           rustToolchain
           pkgs.openssl
           self.packages.${system}.eth-rpc
+          self.packages.${system}.psvm
           zombienet
         ]
         ++ polkadotPkgs
